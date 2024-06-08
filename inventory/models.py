@@ -84,6 +84,8 @@ class InventoryItem(Model):
     person = ManyToManyField(User)
     quantity = IntegerField(default=0)
     unit=ForeignKey(QuantitativeUnit, on_delete=CASCADE, blank=True, default='')
+    ordering_fields = ['expiration_date']
+    ordering = ['expiration_date']
     def __str__(self):
         return self.product.name
 
