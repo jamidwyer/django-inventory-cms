@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.urls import path
 from django.contrib.auth.models import User
 from django.urls import include, path
 from rest_framework import routers, serializers, viewsets
@@ -11,9 +10,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = User
         fields = ['url', 'username']
 
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
 
 class InventoryItemSerializer(serializers.HyperlinkedModelSerializer):
     product = serializers.StringRelatedField(many=False)
@@ -21,6 +17,7 @@ class InventoryItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = InventoryItem
         fields = ['id', 'quantity', 'product', 'expiration_date']
+
 
 class InventoryItemViewSet(viewsets.ModelViewSet):
     serializer_class = InventoryItemSerializer
@@ -32,6 +29,7 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(person__id=user_id)
         return queryset
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -40,6 +38,7 @@ class UserViewSet(viewsets.ModelViewSet):
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'inventoryItems', InventoryItemViewSet, basename='InventoryItem')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,3 +1,4 @@
+# flake8: noqa
 import json
 
 from django.db.models import BigIntegerField, Model, BinaryField, DateField, ForeignKey, CharField, IntegerField, ManyToManyField, TextField, BooleanField, URLField, CASCADE
@@ -8,15 +9,18 @@ from django.dispatch import receiver
 from django.conf import settings
 from django.urls import reverse
 
+
 def uri(name, *args):
     domain = settings.ACTIVITYPUB_DOMAIN
-    path   = reverse(name, args=args)
+    path = reverse(name, args=args)
     return "http://{domain}{path}".format(domain=domain, path=path)
+
 
 class URIs(object):
     def __init__(self, **kwargs):
         for attr, value in kwargs.items():
             setattr(self, attr, value)
+
 
 class Organization(Model):
     name = CharField(max_length=255)
@@ -27,15 +31,17 @@ class Organization(Model):
     city = CharField(max_length=80)
     state = CharField(max_length=80)
     zipcode = CharField(max_length=10)
+
     def __str__(self):
         return self.name
-    
-class Person(Model):
-    ap_id     = TextField(null=True)
-    remote    = BooleanField(default=False)
 
-    username  = CharField(max_length=100)
-    name      = CharField(max_length=100)
+
+class Person(Model):
+    ap_id = TextField(null=True)
+    remote = BooleanField(default=False)
+
+    username = CharField(max_length=100)
+    name = CharField(max_length=100)
     following = ManyToManyField('self', symmetrical=False, related_name='followers')
 
     @property
@@ -68,46 +74,56 @@ class Person(Model):
             })
         return json
 
+
 class Product(Model):
     name = CharField(max_length=200)
+
     def __str__(self):
         return self.name
 
+
 class QuantitativeUnit(Model):
     name = CharField(max_length=20)
+
     def __str__(self):
         return self.name
+
 
 class InventoryItem(Model):
     product = ForeignKey(Product, on_delete=CASCADE)
     expiration_date = DateField(null=True, blank=True, auto_now_add=False)
     person = ManyToManyField(User)
     quantity = IntegerField(default=0)
-    unit=ForeignKey(QuantitativeUnit, on_delete=CASCADE, blank=True, default='')
+    unit = ForeignKey(QuantitativeUnit, on_delete=CASCADE, blank=True, default='')
     ordering_fields = ['expiration_date']
     ordering = ['expiration_date']
+
     def __str__(self):
         return self.product.name
+
 
 class Ingredient(Model):
     quantity = IntegerField
     unit = ForeignKey(QuantitativeUnit, on_delete=CASCADE, blank=True, default='')
     product = ForeignKey(Product, on_delete=CASCADE)
+
     def __str__(self):
         return self.product.name
+
 
 class Recipe(Model):
     ingredients = ManyToManyField(Ingredient, related_name='liked')
     instructions: CharField(max_length=500, blank=True, default='')
     person = ManyToManyField(User, blank=True, default='')
 
-class Note(Model):
-    ap_id   = TextField(null=True)
-    remote  = BooleanField(default=False)
 
-    person  = ForeignKey(Person, related_name='notes', on_delete=CASCADE)
+class Note(Model):
+    ap_id = TextField(null=True)
+    remote = BooleanField(default=False)
+
+    person = ForeignKey(Person, related_name='notes', on_delete=CASCADE)
     content = CharField(max_length=500)
-    likes   = ManyToManyField(Person, related_name='liked')
+    likes = ManyToManyField(Person, related_name='liked')
 
     @property
     def uris(self):
@@ -125,13 +141,14 @@ class Note(Model):
             "actor": self.person.uris.id,
         }
 
+
 class Activity(Model):
 
-    ap_id      = TextField()
-    payload    = BinaryField()
+    ap_id = TextField()
+    payload = BinaryField()
     created_at = DateField(auto_now_add=True)
-    person     = ForeignKey(Person, related_name='activities', on_delete=CASCADE)
-    remote     = BooleanField(default=False)
+    person = ForeignKey(Person, related_name='activities', on_delete=CASCADE)
+    remote = BooleanField(default=False)
 
     @property
     def uris(self):
@@ -148,6 +165,7 @@ class Activity(Model):
             "id": self.uris.id
         })
         return data
+
 
 @receiver(post_save, sender=Person)
 @receiver(post_save, sender=Note)

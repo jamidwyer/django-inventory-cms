@@ -24,9 +24,6 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 # copy project
 COPY . .
 
-# Expose the port server is running on
-EXPOSE 8000
-
 # run entrypoint.sh
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
 
