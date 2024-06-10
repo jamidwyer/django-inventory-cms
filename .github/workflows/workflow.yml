@@ -52,7 +52,7 @@ jobs:
           host: ${{ secrets.DIGITAL_OCEAN_SSH_IP }}
           username: ${{ secrets.DIGITAL_OCEAN_USERNAME }}
           key: ${{ secrets.SSHKEY }}
-          envs: IMAGE_NAME,REGISTRY,{{ secrets.DOCKER_USERNAME }},GITHUB_SHA
+          envs: IMAGE_NAME,DOCKER_NAMESPACE,{{ secrets.DOCKER_USERNAME }},GITHUB_SHA
           script: |
             # Login to registry
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_USERNAME }}
