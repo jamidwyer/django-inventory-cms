@@ -23,7 +23,7 @@ class InventoryItemViewSet(viewsets.ModelViewSet):
     serializer_class = InventoryItemSerializer
 
     def get_queryset(self):
-        queryset = InventoryItem.objects.all()
+        queryset = InventoryItem.objects.all().order_by('expiration_date')
         user_id = self.request.query_params.get('user_id')
         if user_id is not None:
             queryset = queryset.filter(person__id=user_id)

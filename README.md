@@ -16,9 +16,13 @@ http://127.0.0.1:8000/admin
     - https://www.django-rest-framework.org/api-guide/filtering/
     http://127.0.0.1:8000/inventoryItems/?user_id=5
 
+- create superuser
+
+`docker compose run web python manage.py createsuperuser`
 
 - save database
-docker exec -t postgres pg_dumpall -c -U postgres > dump_`date +%Y-%m-%d"_"%H_%M_%S`.sql
+docker exec -t postgres pg_dumpall -c -U     order_by = ['expiration_date']
+postgres > dump_`date +%Y-%m-%d"_"%H_%M_%S`.sql
 
 ## Deploy
 
@@ -36,8 +40,9 @@ Change tag in dockerrun.aws.json.
 
 ### MVP
 
-- sort by expiration date
 - deploy to elastic beanstalk
+- get env settings in correct place
+- persist data across deploys
 
 ### Nice to have
 
@@ -46,7 +51,6 @@ Change tag in dockerrun.aws.json.
 - ActivityPub
 - improve dev setup
     - dockerize https://stackoverflow.com/questions/55483781/how-to-create-postgres-database-and-run-migration-when-docker-compose-up
-- get env settings in correct place
 - improve user
 - eks
 - folder structure
@@ -55,3 +59,5 @@ Change tag in dockerrun.aws.json.
 ## Thank you
 
 https://testdriven.io/blog/dockerizing-django-with-postgres-gunicorn-and-nginx/
+
+https://dev.to/ki3ani/deploying-your-first-dockerized-django-rest-api-on-aws-elastic-beanstalk-a-comprehensive-guide-2m77
