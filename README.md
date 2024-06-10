@@ -23,16 +23,22 @@ http://127.0.0.1:8000/admin
 - save database
 docker exec -t postgres pg_dumpall -c -U     order_by = ['expiration_date']
 postgres > dump_`date +%Y-%m-%d"_"%H_%M_%S`.sql
+AVNS_gZjTT6tf3Fgb6c_MTf1
+### Dev Notes
+To avoid wiping your local db every time you rebuild, make sure the migrate lines are commented out in entrypoint.sh.
 
-## Deploy
-
-Change tag in dockerrun.aws.json.
-
+## Build and push to DockerHub
 `docker build -t hord .`
 
 `docker tag hord:latest <your dockerhub username>/hord:latest`
 
 `docker push <your dockerhub username>/hord:latest`
+
+## Deploy on DigitalOcean
+
+In progress...
+
+## Deploy on AWS EB (not prod-ready)
 
 `eb deploy hord-dev`
 
