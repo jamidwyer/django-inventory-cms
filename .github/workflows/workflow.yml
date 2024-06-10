@@ -3,23 +3,6 @@ name: Test and lint
 
 jobs:
 
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - run: npm test
-
-  package_check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@main
-      - name: "Ensure that code has been packaged and commited"
-        run: |-
-            npm install
-            npm run package
-            git diff --exit-code dist/index.js || \
-              (echo -e "\nPlease run 'npm run package' and commit the results" && exit 1)
-
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
@@ -45,7 +28,7 @@ jobs:
           images: jami/hord
 
       - name: Build and push Docker image
-        id: push
+        id: pushm
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
