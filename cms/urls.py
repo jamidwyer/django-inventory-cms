@@ -37,11 +37,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-router.register(r'inventoryItems', InventoryItemViewSet, basename='InventoryItem')
+router.register(r'inventoryItems', InventoryItemViewSet,
+                basename='InventoryItem')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-auth/', include('rest_framework.urls',
+                              namespace='rest_framework')),
 ]
