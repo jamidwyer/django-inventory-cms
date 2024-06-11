@@ -6,7 +6,7 @@ class TestView(TestCase):
 
     def test_get_recipes(self):
         client = APIClient()
-        res = client.get('/inventoryItems/')
+        res = client.get('/recipes/')
 
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.data, ["Black Beans"])
+        self.assertEqual(res.data, ["Beans and Rice"])

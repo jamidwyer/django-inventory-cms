@@ -54,6 +54,7 @@ In progress...
 
 - separate recipe app
 - recipe
+- cache github actions
 - ActivityPub
 - improve dev setup
     - dockerize https://stackoverflow.com/questions/55483781/how-to-create-postgres-database-and-run-migration-when-docker-compose-up
