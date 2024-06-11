@@ -102,15 +102,6 @@ class InventoryItem(Model):
         return self.product.name
 
 
-class Ingredient(Model):
-    quantity = IntegerField
-    unit = ForeignKey(QuantitativeUnit, on_delete=CASCADE, blank=True, default='')
-    product = ForeignKey(Product, on_delete=CASCADE)
-
-    def __str__(self):
-        return self.product.name
-
-
 class Note(Model):
     ap_id = TextField(null=True)
     remote = BooleanField(default=False)

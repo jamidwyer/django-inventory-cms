@@ -1,10 +1,18 @@
-from django.db.models import Model, CharField, ManyToManyField
+from django.db.models import Model, CharField, ForeignKey, IntegerField, ManyToManyField, CASCADE
 from django.contrib.auth.models import User
-from inventory.models import Ingredient
+from inventory.models import QuantitativeUnit, Product
+
+
+class Ingredient(Model):
+    quantity = IntegerField
+    unit = ForeignKey(QuantitativeUnit, on_delete=CASCADE)
+    product = ForeignKey(Product, on_delete=CASCADE)
+
+    def __str__(self):
+        return self.product.name
 
 
 class Recipe(Model):
-    ingredients = ManyToManyField(Ingredient)
-    instructions: CharField(max_length=500, blank=True, default='')
-    name: CharField(max_length=500, blank=True, default='')
+    instructions: CharField(max_length=500)
+    name: CharField(max_length=500)
     person = ManyToManyField(User, blank=True, default='')
