@@ -1,7 +1,7 @@
 # flake8: noqa
 import json
 
-from django.db.models import BigIntegerField, Model, BinaryField, DateField, ForeignKey, CharField, IntegerField, ManyToManyField, TextField, BooleanField, URLField, CASCADE
+from django.db.models import Model, BinaryField, DateField, ForeignKey, CharField, IntegerField, ManyToManyField, TextField, BooleanField, URLField, CASCADE
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -109,12 +109,6 @@ class Ingredient(Model):
 
     def __str__(self):
         return self.product.name
-
-
-class Recipe(Model):
-    ingredients = ManyToManyField(Ingredient, related_name='liked')
-    instructions: CharField(max_length=500, blank=True, default='')
-    person = ManyToManyField(User, blank=True, default='')
 
 
 class Note(Model):
