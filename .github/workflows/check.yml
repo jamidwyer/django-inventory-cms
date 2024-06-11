@@ -19,6 +19,6 @@ jobs:
       - name: Get vars
         run: echo "${{secrets.ENV_DEV }}" > .env.dev
       - name: Test
-        run: docker compose up && docker compose run --rm web sh -c "python manage.py test"
+        run: docker compose run --rm web sh -c "python manage.py test"
       - name: Lint
         run: docker compose run --rm web sh -c "flake8"
