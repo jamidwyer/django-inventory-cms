@@ -2,8 +2,8 @@ services:
   web:
     build: .
     command: >
-      sh -c "python manage.py wait_for_db && 
-        python manage.py migrate && 
+      sh -c "python manage.py wait_for_db &&
+        python manage.py migrate &&
         python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - db
@@ -20,7 +20,7 @@ services:
     environment:
       - POSTGRES_USER=hello_django
       - POSTGRES_PASSWORD=hello_django
-      - POSTGRES_DB=hord_dev
+      - POSTGRES_DB=hello_django_dev
 
 volumes:
   postgres_data:

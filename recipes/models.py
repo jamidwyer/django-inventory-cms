@@ -1,5 +1,5 @@
 from django.db.models import Model, CharField, ForeignKey, IntegerField, ManyToManyField, CASCADE
-from django.contrib.auth.models import User
+from core.models import User
 from inventory.models import QuantitativeUnit, Product
 
 
