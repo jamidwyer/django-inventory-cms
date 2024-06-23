@@ -2,7 +2,8 @@
 import json
 
 from django.db.models import Model, BinaryField, DateField, ForeignKey, CharField, IntegerField, ManyToManyField, TextField, BooleanField, URLField, CASCADE
-from django.contrib.auth.models import User
+from core.models import User
+
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
