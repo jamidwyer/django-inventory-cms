@@ -4,6 +4,7 @@ from unittest.mock import patch
 from django.db.utils import OperationalError
 from psycopg2 import OperationalError as Psycopg2Error
 from django.core.management import call_command
+from django.urls import reverse
 
 
 class ModelTests(TestCase):
@@ -37,6 +38,26 @@ class ModelTests(TestCase):
             email='test@example.com', password='test123')
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_users_list(self):
+        url = reverse('admin:core_user_changelist')
+        res = self.client.get(url)
+
+        self.assertContains(res, self.user.first_name)
+        self.assertContains(res, self.user.email)
+
+    def test_edit_user_page(self):
+        url = reverse('admin:core_user_change', args=[self.user.id])
+        res = self.client.get(url)
+
+        self.assertEqual(res.status.code, 200)
+
+    def test_create_user_page(self):
+        url = reverse('admin:core_user_add')
+        res = self.client.get(url)
+
+        self.assertEqual(res.status.code, 200)
+
 
 
 @patch('core.management.commands.wait_for_db.Command.check')
