@@ -9,13 +9,20 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install system dependencies
-RUN apt-get update && apt-get install -y netcat libpq-dev gcc 
+RUN apt-get update && apt-get install -y netcat libpq-dev gcc
 
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
+COPY ./scripts /scripts
+COPY ./cms /app
 RUN pip install -r requirements.txt && \
-    adduser --disabled-password --no-create-home django-user
+    adduser --disabled-password --no-create-home django-user && \
+    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static && \
+    chmod -R 755 /vol && \
+    chmod -R +x /scripts
+COPY ./scripts /scripts
 
 EXPOSE 8000
 ARG DEV=false
@@ -28,8 +35,10 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 # copy project
 COPY . .
 
+ENV PATH="/scripts:/py/bin:$PATH"
+
 USER django-user
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+CMD ["/run.sh"]
 

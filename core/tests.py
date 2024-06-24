@@ -59,7 +59,6 @@ class ModelTests(TestCase):
         self.assertEqual(res.status.code, 200)
 
 
-
 @patch('core.management.commands.wait_for_db.Command.check')
 class CommandTests(SimpleTestCase):
     def test_wait_for_db_ready(self, patched_check):

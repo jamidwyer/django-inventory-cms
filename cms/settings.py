@@ -23,11 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = env("SECRET_KEY")
-SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = 'django-insecure-8=o-md=0rp7^ssv8y&5(y*_gu2eg&z2xvy@^9#%1gn)=*r86is'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "changeme")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
@@ -68,7 +67,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'cms.urls'
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS").split(" ")
+
 
 TEMPLATES = [
     {
@@ -154,3 +154,5 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'core.User'
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
