@@ -1,6 +1,7 @@
 from drf_spectacular.views import (
-    SpectacularAPIView,SpectacularSwaggerView
-    )
+    SpectacularAPIView, SpectacularSwaggerView
+)
+
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers, serializers, viewsets
@@ -32,7 +33,7 @@ class RecipeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ['id', 'ingredients', 'instructions', 'name']
+        fields = ['id', 'ingredients']
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
