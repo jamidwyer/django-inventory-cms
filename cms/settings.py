@@ -41,7 +41,6 @@ CORS_ALLOWED_ORIGINS = [
 INSTALLED_APPS = [
     'corsheaders',
     'inventory.apps.InventoryConfig',
-    'recipes.apps.RecipesConfig',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'drf_spectacular',
+    'recipes',
 ]
 
 MIDDLEWARE = [
