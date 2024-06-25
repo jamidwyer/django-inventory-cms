@@ -4,6 +4,8 @@ from drf_spectacular.views import (
 
 from django.contrib import admin
 from django.urls import include, path
+from django.conf.urls.static import static
+from django.conf import settings
 from rest_framework import routers, serializers, viewsets
 from inventory.models import InventoryItem
 from recipes.models import Recipe
@@ -48,9 +50,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 router = routers.DefaultRouter()
-router.register(r'inventoryItems', InventoryItemViewSet,
-                basename='InventoryItem')
-router.register(r'recipes', RecipeViewSet, basename='Recipe')
 
 
 urlpatterns = [
@@ -59,6 +58,10 @@ urlpatterns = [
     path('api/docs', SpectacularSwaggerView.as_view(url_name='api-schema'),
          name='api-docs'),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls',
-                              namespace='rest_framework')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
+    )
