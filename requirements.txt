@@ -2,7 +2,6 @@ Django==4.2.3
 django-cors-headers==4.3.1
 djangorestframework==3.15.1
 drf-spectacular>=0.27.2
-flake8>=3.9.2
-gunicorn==21.2.0
-psycopg2>=2.8.6
-uwsgi>=2.0.19
+flake8>=4.0.1
+psycopg2>=2.9.3
+uwsgi>=2.0.20
