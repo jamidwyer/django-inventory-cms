@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y netcat libpq-dev gcc
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 COPY ./scripts /scripts
-COPY ./cms /app
+COPY . app/
 WORKDIR /app
 
 EXPOSE 8000
@@ -21,7 +21,7 @@ RUN pip install -r /requirements.txt && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /vol && \
     chmod -R 755 /vol && \
-    chmod -R +x /scripts &&
+    chmod -R +x /scripts
 
 ENV PATH="/scripts:/py/bin:$PATH"
 

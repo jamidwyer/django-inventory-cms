@@ -1,26 +1,48 @@
 services:
   web:
-    build: .
-    command: >
-      sh -c "python manage.py wait_for_db &&
-        python manage.py migrate &&
-        python manage.py runserver 0.0.0.0:8000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - static-data:/vol/web
+    environment:
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
     depends_on:
       - db
+<<<<<<< Updated upstream
     volumes:
       - ./app/
     ports:
       - 8000:8000
     env_file:
       - ./.env.dev
+=======
+>>>>>>> Stashed changes
   db:
     image: postgres:15
+    restart: always
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=hello_django
-      - POSTGRES_PASSWORD=hello_django
-      - POSTGRES_DB=hello_django_dev
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - 443:443
+      - 80:8000
+    volumes:
+      - static-data:/vol/static
+    depends_on:
+      - web
 
 volumes:
-  postgres_data:
+  postgres-data:
+  static-data:

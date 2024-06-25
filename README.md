@@ -30,15 +30,16 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 
 ### MVP
 
-- deploy to ec2 and rds
-- get env settings in correct places
-- new env settings for prod
+- query aws db
 - persist data across deploys
+- fix static files
+-- app vs web vs cms
 
 ### Nice to have
 
 - separate recipe app
 - recipe
+- rds
 - elastic beanstalk
 - cache github actions
 - ActivityPub
