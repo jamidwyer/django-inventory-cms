@@ -20,3 +20,5 @@ python manage.py makemigrations
 python manage.py migrate
 
 uwsgi --socket :8000 --workers 4 --master --enable-threads --module cms.wsgi
+
+exec "$@"
