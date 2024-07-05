@@ -3,9 +3,9 @@ COPY ./default.conf.tpl /etc/nginx/default.conf.tpl
 COPY ./uwsgi_params /etc/nginx/uwsgi_params
 COPY ./run.sh /run.sh
 
-ENV LISTEN_PORT=8000
+ENV LISTEN_PORT=80
 ENV APP_HOST=web
-ENV APP_PORT=9000
+ENV APP_PORT=8000
 
 USER root
 

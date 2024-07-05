@@ -6,16 +6,17 @@ ENV PYTHONUNBUFFERED 1
 # install system dependencies
 RUN apt-get update && apt-get install -y netcat libpq-dev gcc
 
+WORKDIR /app/server
+
 # install dependencies
 RUN pip install --upgrade pip
 COPY ./requirements.txt .
 COPY ./scripts /scripts
-COPY . app/
-WORKDIR /app
+COPY . /app/server
 
 EXPOSE 8000
 ARG DEV=false
-RUN pip install -r /requirements.txt && \
+RUN pip install -r requirements.txt && \
     adduser --disabled-password --no-create-home django-user && \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
@@ -27,4 +28,4 @@ ENV PATH="/scripts:/py/bin:$PATH"
 
 USER django-user
 
-CMD ["run.sh"]
+CMD ["./entrypoint.sh"]
