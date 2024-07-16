@@ -33,10 +33,10 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 - query aws db
 - persist data across deploys
 - fix static files
--- app vs web vs cms
 
 ### Nice to have
 
+- fix test connection
 - separate recipe app
 - recipe
 - rds

@@ -3,5 +3,5 @@ django-cors-headers==4.3.1
 djangorestframework==3.15.1
 drf-spectacular>=0.27.2
 flake8>=4.0.1
+gunicorn==22.0.0
 psycopg2>=2.9.3
-uwsgi>=2.0.20

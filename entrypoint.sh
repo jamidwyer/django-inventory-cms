@@ -18,7 +18,6 @@ python manage.py collectstatic --noinput
 # python manage.py flush --no-input
 python manage.py makemigrations
 python manage.py migrate
-
-uwsgi --socket :8000 --workers 4 --master --enable-threads --module cms.wsgi
+gunicorn --config gunicorn_config.py cms.wsgi:application
 
 exec "$@"
