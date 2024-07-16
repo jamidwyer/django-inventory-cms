@@ -12,37 +12,30 @@ services:
       - DB_PASS=${DB_PASS}
       - SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+    links:
+        - db:db
+    networks:
+        - djangonetwork
     depends_on:
       - db
-<<<<<<< Updated upstream
-    volumes:
-      - ./app/
-    ports:
-      - 8000:8000
-    env_file:
-      - ./.env.dev
-=======
->>>>>>> Stashed changes
   db:
     image: postgres:15
     restart: always
+    expose:
+      - "5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASS}
-  nginx:
-    build: ./nginx
-    restart: always
-    ports:
-      - 443:443
-      - 80:8000
-    volumes:
-      - static-data:/vol/static
-    depends_on:
-      - web
+    networks:
+        - djangonetwork
 
 volumes:
   postgres-data:
   static-data:
+
+networks:
+    djangonetwork:
+        driver: bridge
