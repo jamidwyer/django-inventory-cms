@@ -17,10 +17,9 @@ EXPOSE 8000
 ARG DEV=false
 RUN pip install -r requirements.txt && \
     adduser --disabled-password --no-create-home django-user && \
-    mkdir -p /vol/web/media && \
-    mkdir -p /vol/web/static && \
-    chown -R django-user:django-user /vol && \
-    chmod -R 755 /vol
+    mkdir /staticfiles && \
+    chown -R django-user:django-user /staticfiles && \
+    chmod -R 755 /staticfiles
 
 ENV PATH="/scripts:/py/bin:$PATH"
 
