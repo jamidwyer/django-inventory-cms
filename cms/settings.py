@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_spectacular',
     'core',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cms.urls'
+
+GRAPHENE = {
+    'SCHEMA': 'cms.schema.schema'
+}
 
 TEMPLATES = [
     {
@@ -133,11 +138,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/static/'
-MEDIA_URL = '/static/media/'
-
-MEDIA_ROOT = '/vol/web/media'
-STATIC_ROOT = '/vol/web/static'
+STATIC_ROOT = '/staticfiles'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
