@@ -19,6 +19,7 @@ RUN pip install -r requirements.txt && \
     adduser --disabled-password --no-create-home django-user && \
     mkdir /staticfiles && \
     chown -R django-user:django-user /staticfiles && \
+    chown -R django-user:django-user recipes && \
     chmod -R 755 /staticfiles
 
 ENV PATH="/scripts:/py/bin:$PATH"

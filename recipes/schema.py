@@ -9,9 +9,12 @@ class RecipeType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    mymodels = graphene.List(RecipeType)
+    recipes = graphene.List(RecipeType)
 
-    def resolve_mymodels(self, info, **kwargs):
+    class Arguments:
+        ingredient_id = graphene.ID()
+
+    def resolve_recipes(self, info, **kwargs):
         return Recipe.objects.all()
 
 
