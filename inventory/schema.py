@@ -29,7 +29,7 @@ class Query(graphene.ObjectType):
         return Product.objects.all()
 
     def resolve_inventory_items(self, info, user_id, **kwargs):
-        return InventoryItem.objects.get(user_id=user_id)
+        return InventoryItem.objects.all()
 
 
 schema = graphene.Schema(query=Query)
