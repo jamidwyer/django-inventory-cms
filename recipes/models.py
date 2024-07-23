@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db.models import (Model, CharField, ForeignKey, IntegerField,
-                              TextField, DecimalField,  CASCADE)
+                              TextField, DecimalField,  ManyToManyField, CASCADE)
 from inventory.models import QuantitativeUnit, Product
 
 
@@ -15,6 +15,10 @@ class Ingredient(Model):
 
 class Recipe(Model):
     instructions = TextField(blank=True)
+    ingredients = ManyToManyField(
+        'Ingredient',
+        related_name='recipes'
+    )
     name = CharField(max_length=255, )
     user = ForeignKey(
         settings.AUTH_USER_MODEL,
