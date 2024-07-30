@@ -1,7 +1,15 @@
 from django.conf import settings
 from django.db.models import (Model, CharField, ForeignKey, IntegerField,
-                              TextField, DecimalField,  ManyToManyField, CASCADE)
+                              TextField, DecimalField,  ManyToManyField,
+                              CASCADE)
 from inventory.models import QuantitativeUnit, Product
+
+
+class Tag(Model):
+    value = CharField(max_length=100, blank=True, null=True, default='')
+
+    def __str__(self):
+        return self.name
 
 
 class Ingredient(Model):
@@ -30,6 +38,7 @@ class Recipe(Model):
     estimated_cost = DecimalField(max_digits=5, decimal_places=2, blank=True,
                                   null=True)
     url = CharField(max_length=255, blank=True)
+    tag = ForeignKey(Tag, related_name='recipes', on_delete=CASCADE)
 
     def __str__(self):
         return self.name

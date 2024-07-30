@@ -21,6 +21,9 @@ class UserType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
+    product = graphene.Field(ProductType, id=graphene.Int(),
+                             name=graphene.String())
+
     products = graphene.List(ProductType)
 
     inventory_items = graphene.List(InventoryItemType)
@@ -32,6 +35,18 @@ class Query(graphene.ObjectType):
 
     def resolve_viewer(self, info):
         return self
+
+    def resolve_product(self, info, **kwargs):
+        id = kwargs.get('id')
+        name = kwargs.get('name')
+
+        if id is not None:
+            return Product.objects.get(pk=id)
+
+        if name is not None:
+            return Product.objects.get(name=name)
+
+        return None
 
     def resolve_products(self, info, **kwargs):
         return Product.objects.all()

@@ -36,10 +36,12 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 
 ### Nice to have
 
+- recipes by ingredient
 - fix test connection
 - separate recipe app
 - recipe
 - rds
+- recipes by tag
 - elastic beanstalk
 - cache github actions
 - ActivityPub

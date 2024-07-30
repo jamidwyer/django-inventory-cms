@@ -2,7 +2,6 @@ from drf_spectacular.views import (
     SpectacularAPIView, SpectacularSwaggerView
 )
 from graphene_django.views import GraphQLView
-from inventory import schema
 
 from django.contrib import admin
 from django.urls import include, path
@@ -11,6 +10,8 @@ from django.conf import settings
 from rest_framework import routers, serializers, viewsets
 from inventory.models import InventoryItem
 from recipes.models import Recipe
+from cms.schema import schema
+from django.views.decorators.csrf import csrf_exempt
 
 
 class InventoryItemSerializer(serializers.HyperlinkedModelSerializer):
@@ -55,7 +56,7 @@ router = routers.DefaultRouter()
 
 
 urlpatterns = [
-    path('graphql/', GraphQLView.as_view(graphiql=True)),
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
     path('admin/', admin.site.urls),
     path('api/schema', SpectacularAPIView.as_view(), name='api-schema'),
     path('api/docs', SpectacularSwaggerView.as_view(url_name='api-schema'),
