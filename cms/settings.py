@@ -29,7 +29,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "changeme")
 DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(" ")
-CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS", "http://localhost").split(" ")
+CSRF_TRUSTED_ORIGINS = os.environ.get("CSRF_TRUSTED_ORIGINS",
+                                      "http://localhost").split(" ")
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
@@ -37,14 +38,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://localhost:3001",
     "http://127.0.0.1:3001",
+    "http://127.0.0.1",
+    "http://localhost",
 ]
 
 # Application definition
 
 INSTALLED_APPS = [
     'corsheaders',
-    'inventory.apps.InventoryConfig',
-    'recipes.apps.RecipesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -56,6 +57,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'drf_spectacular',
     'core',
+    'inventory',
+    'recipes',
     'graphene_django',
 ]
 

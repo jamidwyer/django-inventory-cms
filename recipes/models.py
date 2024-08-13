@@ -6,10 +6,10 @@ from inventory.models import QuantitativeUnit, Product
 
 
 class Tag(Model):
-    value = CharField(max_length=100, blank=True, null=True, default='')
+    value = CharField(max_length=100, blank=True, null=True, default=None)
 
     def __str__(self):
-        return self.name
+        return self.value
 
 
 class Ingredient(Model):
@@ -27,7 +27,7 @@ class Recipe(Model):
         'Ingredient',
         related_name='recipes'
     )
-    name = CharField(max_length=255, )
+    name = CharField(max_length=255)
     user = ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=CASCADE,
@@ -38,7 +38,8 @@ class Recipe(Model):
     estimated_cost = DecimalField(max_digits=5, decimal_places=2, blank=True,
                                   null=True)
     url = CharField(max_length=255, blank=True)
-    tag = ForeignKey(Tag, related_name='recipes', on_delete=CASCADE)
+    tag = ForeignKey(Tag, related_name='recipes', on_delete=CASCADE,
+                     blank=True, null=True)
 
     def __str__(self):
         return self.name
