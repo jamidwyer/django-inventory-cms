@@ -1,10 +1,18 @@
 from rest_framework import serializers
-from inventory.models import InventoryItem
+from inventory.models import InventoryItem, Product
 
 
-class InventoryItemSerializer(serializers.HyperlinkedModelSerializer):
-    product = serializers.SlugRelatedField(many=False, read_only=True,
-                                           slug_field='name')
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = (
+            'id',
+            'name',
+        )
+
+
+class InventoryItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(many=False, read_only=True)
 
     class Meta:
         model = InventoryItem
