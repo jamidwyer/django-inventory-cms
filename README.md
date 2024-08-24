@@ -30,9 +30,7 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 
 ### MVP
 
-- query aws db
 - persist data across deploys
-- fix static files
 
 ### Nice to have
 
@@ -50,7 +48,6 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 - eks
 - docker compose override https://docs.docker.com/compose/multiple-compose-files/extends/
 - folder structure
-- gql and apollo client
 
 ## Thank you
 
