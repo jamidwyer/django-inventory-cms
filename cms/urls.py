@@ -22,5 +22,5 @@ urlpatterns = [
          name='api-docs'),
     path('', include(router.urls)),
     path('api/recipes/', include('recipes.urls')),
-    path('api/inventory', include('inventory.urls')),
+    path('api/inventory/', include('inventory.urls')),
 ]
