@@ -58,4 +58,45 @@ class Query(graphene.ObjectType):
         return InventoryItem.objects.all().order_by('expiration_date')
 
 
-schema = graphene.Schema(query=Query)
+class UpdateItemQuantity(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+        quantity = graphene.Int(required=True)
+
+    inventory_item = graphene.Field(InventoryItemType)
+
+    def mutate(self, info, id, quantity, **kwargs):
+        inventory_item = InventoryItem.objects.get(id=id)
+        inventory_item.quantity = quantity
+        inventory_item.save()
+        return UpdateItemQuantity(inventory_item=inventory_item)
+
+
+class QuantitativeUnitInput(graphene.InputObjectType):
+    id = graphene.Int(required=True)
+
+
+class InventoryItemInput(graphene.InputObjectType):
+    id = graphene.Int(required=True)
+    quantity = graphene.Int(required=True)
+    unit = graphene.Field(QuantitativeUnitInput)
+    expiration_date = graphene.String(required=True)
+
+
+class CreateInventoryItem(graphene.Mutation):
+    inventory_item = graphene.Field(InventoryItemType)
+
+    class Arguments:
+        new_inventory_item = InventoryItemInput(required=True)
+
+    def mutate(self, info, item_id, quantity):
+        inventory_item = InventoryItem.objects.create(**new_inventory_item)
+        return CreateInventoryItem(inventory_item=inventory_item)
+
+
+class Mutation(graphene.ObjectType):
+    create_inventory_item = CreateInventoryItem.Field()
+    update_item_quantity = UpdateItemQuantity.Field()
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

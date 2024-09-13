@@ -30,6 +30,7 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 
 ### MVP
 
+- gate inventory on auth
 - persist data across deploys
 
 ### Nice to have
@@ -37,6 +38,7 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 - recipes by ingredient
 - fix test connection
 - separate recipe app
+- separate user app
 - recipe
 - rds
 - recipes by tag
