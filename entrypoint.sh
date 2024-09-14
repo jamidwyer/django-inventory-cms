@@ -15,8 +15,9 @@ fi
 
 python manage.py wait_for_db
 python manage.py collectstatic --noinput
+# The next line wipes the database, so... be careful.
 # python manage.py flush --no-input
-python manage.py makemigrations
+yes | python manage.py makemigrations --noinput
 python manage.py migrate --fake
 python manage.py spectacular
 gunicorn --config gunicorn_config.py cms.wsgi:application
