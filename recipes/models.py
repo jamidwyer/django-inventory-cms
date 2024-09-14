@@ -38,8 +38,8 @@ class Recipe(Model):
     estimated_cost = DecimalField(max_digits=5, decimal_places=2, blank=True,
                                   null=True)
     url = CharField(max_length=255, blank=True)
-    tag = ForeignKey(Tag, related_name='recipes', on_delete=CASCADE,
-                     blank=True, null=True)
+ #   tag = ForeignKey(Tag, related_name='recipes', on_delete=CASCADE,
+                    #  blank=True, null=True)
 
     def __str__(self):
         return self.name

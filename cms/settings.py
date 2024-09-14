@@ -77,8 +77,16 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'cms.urls'
 
 GRAPHENE = {
-    'SCHEMA': 'cms.schema.schema'
+    'SCHEMA': 'cms.schema.schema',
+    'MIDDLEWARE': [
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    ],
 }
+
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 TEMPLATES = [
     {
