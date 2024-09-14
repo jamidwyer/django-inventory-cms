@@ -60,7 +60,7 @@ class Query(graphene.ObjectType):
 
 class UpdateItemQuantity(graphene.Mutation):
     class Arguments:
-        id = graphene.Int(required=True)
+        id = graphene.String(required=True)
         quantity = graphene.Int(required=True)
 
     inventory_item = graphene.Field(InventoryItemType)
