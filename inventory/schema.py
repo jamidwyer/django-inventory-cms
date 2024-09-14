@@ -1,7 +1,7 @@
 import graphene
 from graphene_django import DjangoObjectType
 from django_filters import OrderingFilter
-from .models import Product, InventoryItem
+from .models import Product, InventoryItem, QuantitativeUnit
 from core.models import User
 
 
@@ -10,9 +10,15 @@ class ProductType(DjangoObjectType):
         model = Product
 
 
+class UnitType(DjangoObjectType):
+    class Meta:
+        model = QuantitativeUnit
+
+
 class InventoryItemType(DjangoObjectType):
     class Meta:
         model = InventoryItem
+        fields = ('id', 'product', 'expiration_date', 'person', 'quantity', 'unit')
 
 
 class UserType(DjangoObjectType):
@@ -27,9 +33,6 @@ class Query(graphene.ObjectType):
     products = graphene.List(ProductType)
 
     inventory_items = graphene.List(InventoryItemType)
-
-    order_by = OrderingFilter(
-               fields=(('expiration_date'),))
 
     viewer = graphene.Field(lambda: Query)
 
@@ -49,10 +52,10 @@ class Query(graphene.ObjectType):
         return None
 
     def resolve_products(self, info, **kwargs):
-        return Product.objects.all()
+        return Product.objects.all().order_by('name')
 
     def resolve_inventory_items(self, info, **kwargs):
-        return InventoryItem.objects.all()
+        return InventoryItem.objects.all().order_by('expiration_date')
 
 
 schema = graphene.Schema(query=Query)

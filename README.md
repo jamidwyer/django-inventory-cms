@@ -41,6 +41,7 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 - rds
 - recipes by tag
 - elastic beanstalk
+- want ids to be numbers instead of strings
 - cache github actions
 - ActivityPub
 - improve user
