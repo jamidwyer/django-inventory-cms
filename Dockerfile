@@ -20,6 +20,7 @@ RUN pip install -r requirements.txt && \
     mkdir /staticfiles && \
     chown -R django-user:django-user /staticfiles && \
     chown -R django-user:django-user recipes && \
+    chown -R django-user:django-user inventory && \
     chmod -R 755 /staticfiles
 
 ENV PATH="/scripts:/py/bin:$PATH"

@@ -93,7 +93,7 @@ class QuantitativeUnit(Model):
 class InventoryItem(Model):
     product = ForeignKey(Product, on_delete=CASCADE)
     expiration_date = DateField(null=True, blank=True, auto_now_add=False)
-    person = ManyToManyField(User)
+    person = ForeignKey(User, on_delete=CASCADE, default=1)
     quantity = IntegerField(default=0)
     unit = ForeignKey(QuantitativeUnit, on_delete=CASCADE, blank=True, default='')
     ordering_fields = ['expiration_date']
