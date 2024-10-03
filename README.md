@@ -35,12 +35,16 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 
 ### Nice to have
 
+- recipes have uuids why
+- if quantity 0, remove expiration and sort last
 - recipes by ingredient
 - fix test connection
 - separate recipe app
 - separate user app
 - recipe
 - rds
+- i don't like ingredients as their own model but maybe i need it
+- why "ingredientSet"
 - recipes by tag
 - elastic beanstalk
 - want ids to be numbers instead of strings
