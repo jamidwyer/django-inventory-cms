@@ -1,8 +1,9 @@
 import graphene
-from graphene import Node
+from graphene import relay, Node
 from graphene_django import DjangoObjectType
 from django_filters import OrderingFilter
 from graphene_django.filter import DjangoFilterConnectionField
+from graphql_relay import from_global_id
 from .models import Product, InventoryItem, QuantitativeUnit
 from core.models import User
 
@@ -69,18 +70,28 @@ class Query(graphene.ObjectType):
         return InventoryItem.objects.all().order_by('expiration_date')
 
 
-class UpdateItemQuantity(graphene.Mutation):
-    class Arguments:
+class UpdateItemQuantity(relay.ClientIDMutation):
+    success = graphene.Boolean()
+    message = graphene.String()
+    inventory_item = graphene.Field(lambda: InventoryItemType) 
+
+    class Input:
         id = graphene.String(required=True)
         quantity = graphene.Int(required=True)
 
-    inventory_item = graphene.Field(InventoryItemType)
+    def mutate_and_get_payload(cls, info, id, quantity, **kwargs):
+        try:
+            item_id = from_global_id(id)[1]
 
-    def mutate(self, info, id, quantity, **kwargs):
-        inventory_item = InventoryItem.objects.get(id=id)
-        inventory_item.quantity = quantity
-        inventory_item.save()
-        return UpdateItemQuantity(inventory_item=inventory_item)
+            inventory_item = InventoryItem.objects.get(id=item_id)
+            inventory_item.quantity = quantity
+            inventory_item.save()
+
+            return UpdateItemQuantity(success=True, inventory_item=inventory_item)
+        except InventoryItem.DoesNotExist:
+            return UpdateItemQuantity(success=False, message="Item not found.")
+        except Exception as e:
+            return UpdateItemQuantity(success=False, message=f"An error occurred: {str(e)}")
 
 
 class QuantitativeUnitInput(graphene.InputObjectType):
@@ -113,18 +124,20 @@ class CreateInventoryItem(graphene.Mutation):
         return CreateInventoryItem(inventory_item=inventory_item)
 
 
-class DeleteInventoryItem(graphene.Mutation):
+class DeleteInventoryItem(relay.ClientIDMutation):
     success = graphene.Boolean()
     message = graphene.String()
 
-    class Arguments:
+    class Input:
         id = graphene.ID(required=True)
 
-    def mutate(self, info, id):
+    item = graphene.Field(InventoryItemType)
+
+    def mutate_and_get_payload(cls, info, id):
         try:
-            # Retrieve the item by ID
-            item = InventoryItem.objects.get(id=id)
-            # Delete the item
+            item_id = from_global_id(id)[1]
+
+            item = InventoryItem.objects.get(id=item_id)
             item.delete()
             return DeleteInventoryItem(success=True, message="Item deleted successfully.")
         except InventoryItem.DoesNotExist:
