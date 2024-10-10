@@ -6,7 +6,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay import from_global_id
 from .models import Product, InventoryItem, QuantitativeUnit
 from core.models import User
-
+from graphql_jwt.decorators import login_required
 
 class ProductType(DjangoObjectType):
     class Meta:
@@ -66,8 +66,10 @@ class Query(graphene.ObjectType):
     def resolve_units(self, info, **kwargs):
         return QuantitativeUnit.objects.all().order_by('name')
 
+    @login_required
     def resolve_inventory_items(self, info, **kwargs):
-        return InventoryItem.objects.all().order_by('expiration_date')
+        user = info.context.user
+        return InventoryItem.objects.filter(person=user).order_by('expiration_date')
 
 
 class UpdateItemQuantity(relay.ClientIDMutation):
