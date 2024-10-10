@@ -30,7 +30,6 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 
 ### MVP
 
-- gate inventory on auth
 - persist data across deploys
 
 ### Nice to have
