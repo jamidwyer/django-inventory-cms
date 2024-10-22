@@ -47,6 +47,7 @@ To avoid wiping your local db every time you rebuild, make sure the migrate line
 - recipes by tag
 - elastic beanstalk
 - want ids to be numbers instead of strings
+- merge cms and core
 - cache github actions
 - ActivityPub
 - improve user
