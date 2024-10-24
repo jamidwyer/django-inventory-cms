@@ -1,0 +1,188 @@
+@font-face {
+    font-family: 'Cherry Cream Soda';
+    src: url('CherryCreamSoda.woff2');
+}
+
+h1 {
+    color: rgb(241 238 236);
+}
+
+h3 {
+    border-bottom-width: 1px;
+    color: var(--licorice);
+}
+
+h3 a:link, h3 a:visited {
+    color: var(--licorice);
+}
+
+nav {
+    width: 100%;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+[multiple], [type=date], [type=datetime-local], [type=email], [type=month], [type=number], [type=password], [type=search], [type=tel], [type=text], [type=time], [type=url], [type=week], input:where(:not([type])), select, textarea {
+    border-color: var(--stainless);
+    border-radius: 0.125rem;
+}
+
+select {
+    height: 2.5rem;
+}
+
+a:link, a:visited {
+    color: var(--bloodorange);
+    font-weight: 400;
+}
+
+th a {
+    font-weight: 400;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background-color: var(--bloodorange);
+}
+
+.button.default:hover, input[type=submit].default:hover, .submit-row input.default:hover {
+    background-color: var(--smashed-pumpkin);
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, a.button:hover {
+    background-color: var(--bloodorange);
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background-color: var(--smashed-pumpkin);
+}
+
+.submit-row input.default {
+    text-transform: none;
+}
+
+.module caption {
+    background-color: none;
+}
+
+.module caption .section:link, .module caption .section:visited {
+    color: var(--licorice);
+}
+
+a.section:link, a.section:visited {
+    color: var(--licorice);
+}
+
+#header {
+    background-color: var(--bloodorange);
+    color: rgb(241 238 236);
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    overflow: visible;
+}
+
+#header h1 {
+    font-family: 'Cherry Cream Soda';
+    font-weight: 400;
+    font-style: normal;
+}
+
+#branding h1 {
+    color: rgb(241 238 236);
+    font-size: 72px;
+    font-weight: bolder;
+    margin-left: 16px;
+}
+
+#branding_and_tools {
+    color: var(--jasmine-rice);
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+nav a h2.hidden {
+    color: var(--licorice);
+    display: block !important;
+}
+
+nav a:link svg, nav a:visited svg {
+    color: var(--licorice);
+}
+
+.addlink {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path></svg>');
+    background-size: 16px 16px;
+}
+
+.changelink {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>');
+    background-position: 0% 50%;
+    background-size: 12px 12px;
+}
+
+div.breadcrumbs {
+    background: none;
+    color: var(--smashed-pumpkin);
+    font-size: 0.8rem;
+}
+
+div.breadcrumbs a:hover, .breadcrumbs a:focus {
+    color: var(--bloodorange);
+}
+
+.login #container {
+    background: var(--jasmine-rice);
+    border: none;
+    border-radius: 0 !important;
+    overflow: hidden;
+    width: 100% !important;
+    min-width: 300px;
+    margin: 0 auto !important;
+    height: 100%;
+}
+
+.login #header h1 {
+    font-size: 72px !important;
+    margin-left: 16px !important;
+}
+
+div.breadcrumbs a {
+    color: var(--trout-back);
+}
+
+.related-widget-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logout-form button {
+    background-color: var(--jasmine-rice);
+    color: var(--black-bean);
+    padding-left: .75rem;
+    padding-right: .75rem;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    text-transform: none;
+    height: 36px;
+    border-radius: 2px;
+}
+
+#logout-form button:hover {
+    background-color: var(--stainless);
+    color: var(--licorice);
+}
+
+#logout-form button:active, #logout-form button:hover {
+    margin-bottom: 0;
+}
+
+[multiple]:focus, [type=date]:focus, [type=datetime-local]:focus, [type=email]:focus, [type=month]:focus, [type=number]:focus, [type=password]:focus, [type=search]:focus, [type=tel]:focus, [type=text]:focus, [type=time]:focus, [type=url]:focus, [type=week]:focus, input:where(:not([type])):focus, select:focus, textarea:focus {
+    border-color: var(--bloodorange);
+}

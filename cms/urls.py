@@ -28,4 +28,3 @@ urlpatterns = [
 
 admin.site.site_header = 'Hord CMS'
 admin.site.site_title = 'Hord CMS'
-admin.site.index_title = 'Hord CMS'
