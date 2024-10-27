@@ -26,5 +26,7 @@ urlpatterns = [
     path('api/inventory/', include('inventory.urls')),
 ]
 
+admin.autodiscover()
 admin.site.site_header = 'Hord CMS'
 admin.site.site_title = 'Hord CMS'
+admin.site.enable_nav_sidebar = False
