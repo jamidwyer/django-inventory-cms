@@ -1173,8 +1173,12 @@ nav {
   font-style: normal;
 }
 
+a {
+  color: var(--bloodorange);
+}
+
 a:hover {
-  color: var(--jasmine-rice);
+  color: var(--tomato);
 }
 
 button {
@@ -1549,14 +1553,22 @@ div.breadcrumbs a {
     }
     #branding .items-end {
         gap: 8px;
+        align-items: center;
+        padding: 8px;
     }
     #branding h1 {
         font-size: 1.4rem;
+    }
+    #main {
+      padding: 8px;
     }
 }
 
 @media (max-width: 767px) {
     #header, #content, #footer {
         padding: 0px !important;
+    }
+    body.login {
+      padding: 0 !important;
     }
 }

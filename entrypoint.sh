@@ -21,6 +21,7 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py migrate --fake contenttypes
 python manage.py spectacular
+python manage.py create_groups
 gunicorn --config gunicorn_config.py cms.wsgi:application
 
 exec "$@"
