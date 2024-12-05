@@ -1,11 +1,12 @@
 from django.conf import settings
-from django.db.models import (Model, CharField, ForeignKey, IntegerField,
+from django.db.models import (Model, AutoField, CharField, ForeignKey, IntegerField,
                               TextField, DecimalField,  ManyToManyField,
                               CASCADE)
 from inventory.models import QuantitativeUnit, Product
 
 
 class Recipe(Model):
+    id = AutoField(primary_key=True)
     instructions = TextField(blank=True)
     ingredients = ManyToManyField(Product, through='Ingredient')
     name = CharField(max_length=255)
