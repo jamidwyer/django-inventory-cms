@@ -28,16 +28,13 @@ class Command(BaseCommand):
         }
 
         for group_name, permissions_list in groups_permissions.items():
-            # Create the group
             group, created = Group.objects.get_or_create(name=group_name)
             if created:
                 self.stdout.write(f'Group "{group_name}" created')
             else:
                 self.stdout.write(f'Group "{group_name}" already exists')
 
-            # Set permissions
             for perm_codename in permissions_list:
-                # Determine model and content type
                 model_name = perm_codename.split('_')[1]
                 content_type = model_content_types.get(model_name)
 
@@ -46,7 +43,6 @@ class Command(BaseCommand):
                     continue
 
                 try:
-                    # Fetch the permission based on the codename and content type
                     permission = Permission.objects.get(codename=perm_codename, content_type=content_type)
                     group.permissions.add(permission)
                 except Permission.DoesNotExist:
