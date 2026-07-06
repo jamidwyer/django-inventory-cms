@@ -1,10 +1,10 @@
-FROM python:3.11.4-slim-buster
+FROM python:3.11-slim-bookworm
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install system dependencies
-RUN apt-get update && apt-get install -y netcat libpq-dev gcc
+RUN apt-get update && apt-get install -y netcat-traditional libpq-dev gcc
 
 WORKDIR /app/server
 

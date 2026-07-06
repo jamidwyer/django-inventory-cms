@@ -1574,6 +1574,7 @@ a.section:visited {
 }
 
 nav a h2.hidden {
+  background-color: var(--stainless);
   color: var(--licorice);
   display: block !important;
 }
