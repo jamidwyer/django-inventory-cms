@@ -6,6 +6,11 @@ djangorestframework==3.15.1
 drf-spectacular>=0.27.2
 flake8>=4.0.1
 graphene-django>=3.2.2
+# Pinned below 3.2.11: that release added DIRECTIVE_DEFINITION to the
+# built-in @deprecated directive's locations, which graphql-js v16 (used
+# by graphql-code-generator) can't parse -- breaks `npm run codegen`
+# with "Syntax Error: Unexpected Name DIRECTIVE_DEFINITION".
+graphql-core==3.2.10
 gunicorn==22.0.0
 psycopg2>=2.9.3
 requests==2.31.0

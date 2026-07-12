@@ -4,6 +4,7 @@ from graphene_django import DjangoObjectType
 from django_filters import OrderingFilter
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay import from_global_id
+from django.utils.dateparse import parse_date
 from .models import Product, InventoryItem, QuantitativeUnit
 from core.models import User
 from graphql_jwt.decorators import login_required
@@ -96,6 +97,30 @@ class UpdateItemQuantity(relay.ClientIDMutation):
             return UpdateItemQuantity(success=False, message=f"An error occurred: {str(e)}")
 
 
+class UpdateExpirationDate(relay.ClientIDMutation):
+    success = graphene.Boolean()
+    message = graphene.String()
+    inventory_item = graphene.Field(lambda: InventoryItemType)
+
+    class Input:
+        id = graphene.String(required=True)
+        expiration_date = graphene.String(required=True)
+
+    def mutate_and_get_payload(cls, info, id, expiration_date, **kwargs):
+        try:
+            item_id = from_global_id(id)[1]
+
+            inventory_item = InventoryItem.objects.get(id=item_id)
+            inventory_item.expiration_date = parse_date(expiration_date)
+            inventory_item.save()
+
+            return UpdateExpirationDate(success=True, inventory_item=inventory_item)
+        except InventoryItem.DoesNotExist:
+            return UpdateExpirationDate(success=False, message="Item not found.")
+        except Exception as e:
+            return UpdateExpirationDate(success=False, message=f"An error occurred: {str(e)}")
+
+
 class QuantitativeUnitInput(graphene.InputObjectType):
     id = graphene.Int(required=True)
 
@@ -122,7 +147,7 @@ class CreateInventoryItem(graphene.Mutation):
         user_id = user.id
         
         # TODO: inventory item needs to have person
-        inventory_item = InventoryItem.objects.create(product_id=new_inventory_item.id, person_id=user_id, quantity=new_inventory_item.quantity, expiration_date=new_inventory_item.expiration_date, unit_id=new_inventory_item.unit_id)
+        inventory_item = InventoryItem.objects.create(product_id=new_inventory_item.id, person_id=user_id, quantity=new_inventory_item.quantity, expiration_date=parse_date(new_inventory_item.expiration_date), unit_id=new_inventory_item.unit_id)
         return CreateInventoryItem(inventory_item=inventory_item)
 
 
@@ -151,6 +176,7 @@ class DeleteInventoryItem(relay.ClientIDMutation):
 class Mutation(graphene.ObjectType):
     create_inventory_item = CreateInventoryItem.Field()
     update_item_quantity = UpdateItemQuantity.Field()
+    update_expiration_date = UpdateExpirationDate.Field()
     delete_inventory_item = DeleteInventoryItem.Field()
 
 
