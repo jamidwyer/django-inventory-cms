@@ -1,4 +1,4 @@
-Django==4.2.3
+Django==4.2.30
 django-cors-headers==4.3.1
 django-filter==24.2
 django-graphql-jwt==0.4.0
@@ -13,4 +13,4 @@ graphene-django>=3.2.2
 graphql-core==3.2.10
 gunicorn==22.0.0
 psycopg2>=2.9.3
-requests==2.31.0
+requests==2.32.5
